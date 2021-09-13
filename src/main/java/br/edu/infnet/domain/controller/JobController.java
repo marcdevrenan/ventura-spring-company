@@ -17,9 +17,17 @@ public class JobController {
     @Autowired
     private JobRepository jobRepository;
 
+    @GetMapping(path = "/all-jobs")
+    public ResponseEntity listJobs() {
+        List<Job> list = (List<Job>) jobRepository.findAll();
+
+        return ResponseEntity.ok().body(list);
+    }
+
     @GetMapping(path = "/user/{userId}")
     public ResponseEntity listByUserId(@PathVariable Integer userId) {
         List<Job> list = jobRepository.findByUserId(userId);
+
         return ResponseEntity.ok().body(list);
     }
 
